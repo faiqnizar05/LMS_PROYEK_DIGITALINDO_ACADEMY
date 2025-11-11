@@ -1,0 +1,142 @@
+@extends('backend.admin.master')
+
+@section('content')
+    <div class="page-content">
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="breadcrumb-title pe-3">Pesanan</div>
+            <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Lihat Pesanan</li>
+                    </ol>
+                </nav>
+            </div>
+    
+        </div>
+        <!--end breadcrumb-->
+        <div style="display: flex; align-items:center; justify-content:space-between">
+            <h6 class="mb-0 text-uppercase">Lihat Rincian Pesanan</h6>
+
+
+        </div>
+
+        <hr />
+
+        <div class="row align-items-stretch">
+            <div class="col-md-6">
+
+                <div class="card h-100">
+                    <div class="card-body">
+
+                        <div style="display:flex; align-items:center; justify-content: flex-start; gap: 15px">
+
+                            <div>
+                                <img src="{{asset($user_info->photo)}}" class="text-center" width="120" height='120' style="border-radius: 60px"  />
+
+                            </div>
+
+
+                            <div style="display: flex; flex-direction:column; gap: 10px;">
+                                <span>Nama : {{$user_info->name}}</span>
+                                <span>Email : {{$user_info->email}}</span>
+                                <span>Nomor Telepon : {{$user_info->phone}}</span>
+                                <span>Alamat: {{$user_info->address}}</span>
+                                <span>Bio: {{$user_info->bio}}</span>
+                                <span>Jenis Kelamin: {{$user_info->gender}}</span>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="card h-100">
+                    <div class="card-body">
+
+                        <div style="display:flex; align-items:center; justify-content: flex-start; gap: 15px">
+
+
+
+
+                            <div style="display: flex; flex-direction:column; gap: 10px;">
+                                <span>Jumlah Total : {{$payment_info->total_amount}}</span>
+                                <span>Jenis Pembayaran : {{$payment_info->payment_type}}</span>
+                                <span>Nomor Faktur : {{$payment_info->invoice_no}}</span>
+                                <span>Tanggal Pesanan {{ $payment_info->created_at->format('F d, Y') }}</span>
+
+                                <span>ID Trx: {{$payment_info->transaction_id}}</span>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="mt-5">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Gambar</th>
+                                    <th>Nama Kursus</th>
+                                    <th>Kategori</th>
+                                    <th>Instruktur</th>
+                                    <th>Harga</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 @foreach($payment_info['order'] as $item)
+                                <tr>
+                                    <td>
+                                        <img src="{{asset($item->course->course_image)}}" width="80" height="80" style="border-radius: 5px" />
+                                    </td>
+
+                                    <td>{{$item->course->course_name}}</td>
+                                    <td>
+                                        {{$item->course->category->name}}
+                                    </td>
+
+                                    <td>
+                                        {{$item->instructor->name}}
+                                    </td>
+
+                                    <td>
+                                        ${{$item->price}}
+                                    </td>
+
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+@endsection
+
+
